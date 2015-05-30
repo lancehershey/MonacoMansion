@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour {
 
 	public float speed = 10;
 
-	NavMeshAgent agent;
+	private NavMeshAgent agent;
 
 	void Start()
 	{
@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
 			if(Physics.Raycast(ray, out hit, 100))
 			{
 				agent.SetDestination(hit.point);
+				agent.updateRotation = false;
 			}
 		}
 	}
