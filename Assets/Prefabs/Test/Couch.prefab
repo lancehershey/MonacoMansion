@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 460286}
   - 212: {fileID: 21262770}
-  - 61: {fileID: 6177204}
   m_Layer: 0
   m_Name: Couch
   m_TagString: Untagged
@@ -23,25 +22,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120864}
-  m_LocalRotation: {x: 0, y: 0, z: .707106829, w: .707106709}
-  m_LocalPosition: {x: -0, y: -1.15999997, z: 0}
+  m_LocalRotation: {x: .5, y: -.5, z: .500000119, w: .49999994}
+  m_LocalPosition: {x: -0, y: 0, z: -1.15999997}
   m_LocalScale: {x: 2.33098221, y: 2.33098245, z: 2.33098245}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6177204
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 120864}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: -.00556943286, y: -5.11412139e-08}
-  serializedVersion: 2
-  m_Size: {x: .235310912, y: .446937025}
 --- !u!212 &21262770
 SpriteRenderer:
   m_ObjectHideFlags: 1

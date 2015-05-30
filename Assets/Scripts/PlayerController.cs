@@ -5,29 +5,24 @@ public class PlayerController : MonoBehaviour {
 
 	public float speed = 10;
 
-	private Rigidbody2D rb2D;
+	NavMeshAgent agent;
 
-	void Awake () {
-		rb2D = GetComponent<Rigidbody2D>();
+	void Start()
+	{
+		agent = GetComponent<NavMeshAgent>();
 	}
 
-	void Update () {
-		if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+	void Update()
+	{
+		if(Input.GetMouseButtonDown(0))
 		{
-			transform.position = new Vector3(transform.position.x - speed * Time.deltaTime, transform.position.y, transform.position.z);
-		}
-		if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-		{
-			transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
-		}
-		if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
-		{
-			transform.position = new Vector3(transform.position.x, transform.position.y + speed * Time.deltaTime, transform.position.z);
-		}
-		if(Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-		{
-			transform.position = new Vector3(transform.position.x, transform.position.y - speed * Time.deltaTime, transform.position.z);
-		}
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
 
+			if(Physics.Raycast(ray, out hit, 100))
+			{
+				agent.SetDestination(hit.point);
+			}
+		}
 	}
 }
