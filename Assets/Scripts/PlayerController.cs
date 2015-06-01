@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	public float speed = 10;
+	public float walkSpeed = 1;
+	public float runSpeed = 3;
 
 	private NavMeshAgent agent;
 
@@ -25,5 +26,10 @@ public class PlayerController : MonoBehaviour {
 				agent.updateRotation = false;
 			}
 		}
+
+		if(Input.GetKeyDown(KeyCode.LeftShift))
+			agent.speed = runSpeed;
+		if(Input.GetKeyUp(KeyCode.LeftShift))
+			agent.speed = walkSpeed;
 	}
 }
