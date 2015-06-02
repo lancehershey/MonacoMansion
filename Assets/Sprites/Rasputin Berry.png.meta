@@ -1,9 +1,17 @@
 fileFormatVersion: 2
 guid: 35fde4f4bdb462c428a62dea13002fbf
-timeCreated: 1433267035
+timeCreated: 1433279687
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Rasputin Berry_0
+    21300002: Rasputin Berry_1
+    21300004: Rasputin Berry_2
+    21300006: Rasputin Berry_3
+    21300008: Rasputin Berry_4
+    21300010: Rasputin Berry_5
+    21300012: Rasputin Berry_6
+    21300014: Rasputin Berry_7
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -37,7 +45,7 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -48,7 +56,87 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: Rasputin Berry_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 14
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Rasputin Berry_1
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 14
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Rasputin Berry_2
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 14
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Rasputin Berry_3
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 14
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Rasputin Berry_4
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 14
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Rasputin Berry_5
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 14
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Rasputin Berry_6
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 14
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Rasputin Berry_7
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 14
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

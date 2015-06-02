@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
 			if(Physics.Raycast(ray, out hit, 100))
 			{
 				agent.SetDestination(hit.point);
-				agent.updateRotation = false;
+				//agent.updateRotation = false;
 			}
 		}
 

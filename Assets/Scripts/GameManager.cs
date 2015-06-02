@@ -10,9 +10,11 @@ public class GameManager : MonoBehaviour {
 	public int initialScore = 1000;
 	public float killRadius = 1f;
 	public int killPenalty = 100;
+	public int falseAccusePenalty = 200;
+	public int accusations = 3;
 
 	private int score;
-	private float initializationTimer = 5f;
+	private float initializationTimer = 2f;
 
 	void Awake()
 	{
@@ -31,7 +33,7 @@ public class GameManager : MonoBehaviour {
 	{
 		foreach(GameObject npc in Npcs)
 		{
-			npc.tag = "Victim";
+			GameObject.Find(npc.name).tag = "Victim";
 		}
 		
 		Invoke("SetKiller", initializationTimer);
@@ -40,7 +42,7 @@ public class GameManager : MonoBehaviour {
 	void SetKiller()
 	{
 		int randomIndex = Random.Range(0, Npcs.Length);
-		Npcs[randomIndex].tag = "Killer";
+		GameObject.Find(Npcs[randomIndex].name).tag = "Killer";
 		Debug.Log(Npcs[randomIndex].name + " is the killer.");
 	}
 
