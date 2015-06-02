@@ -4,12 +4,15 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
 	[HideInInspector]
-	public GameManager instance = null;
+	public static GameManager instance = null;
 
-	public int numberOfNpcs = 10;
+	public GameObject[] Npcs;
 	public int initialScore = 1000;
+	public float killRadius = 1f;
+	public int killPenalty = 100;
 
 	private int score;
+	private float initializationTimer = 5f;
 
 	void Awake()
 	{
@@ -21,6 +24,24 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 
 		score = initialScore;
+
+	}
+
+	void Start()
+	{
+		foreach(GameObject npc in Npcs)
+		{
+			npc.tag = "Victim";
+		}
+		
+		Invoke("SetKiller", initializationTimer);
+	}
+
+	void SetKiller()
+	{
+		int randomIndex = Random.Range(0, Npcs.Length);
+		Npcs[randomIndex].tag = "Killer";
+		Debug.Log(Npcs[randomIndex].name + " is the killer.");
 	}
 
 	int GetScore()
@@ -35,8 +56,21 @@ public class GameManager : MonoBehaviour {
 			GameOver();
 	}
 
+	public void killCharacter(GameObject killed)
+	{
+		if(killed.tag == "Player")
+		{
+			Destroy(killed);
+			GameOver();
+		}
+		Destroy(killed);
+		AdjustScore(-killPenalty);
+		Debug.Log("Character killed. New score: " + score);
+	}
+
 	void GameOver()
 	{
-
+		Debug.Log("Player killed. Game Over! :(");
+		Debug.Log("Final Score: " + score);
 	}
 }
