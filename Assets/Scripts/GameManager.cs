@@ -1,7 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour {
+
+	// This class makes it easier to specify a range in the inspector.
+	[Serializable]
+	public class FloatCount
+	{
+		public float minimum;
+		public float maximum;
+		
+		public FloatCount(float min, float max)
+		{
+			minimum = min;
+			maximum = max;
+		}
+	}
 
 	[HideInInspector]
 	public static GameManager instance = null;
@@ -12,6 +28,9 @@ public class GameManager : MonoBehaviour {
 	public int killPenalty = 100;
 	public int falseAccusePenalty = 200;
 	public int accusations = 3;
+
+	public FloatCount spawnRangeX = new FloatCount(-4f, 4f);
+	public FloatCount spawnRangeZ = new FloatCount(-2.5f, 2.5f);
 
 	private int score;
 	private float initializationTimer = 2f;
@@ -25,25 +44,27 @@ public class GameManager : MonoBehaviour {
 
 		DontDestroyOnLoad(gameObject);
 
-		score = initialScore;
-
 	}
 
-	void Start()
+	public void StartGame()
 	{
 		foreach(GameObject npc in Npcs)
 		{
-			GameObject.Find(npc.name).tag = "Victim";
+			Instantiate(npc, new Vector3(Random.Range(spawnRangeX.minimum, spawnRangeX.maximum), 0, 
+			                             Random.Range(spawnRangeZ.minimum, spawnRangeZ.maximum)), Quaternion.identity);
 		}
-		
+
 		Invoke("SetKiller", initializationTimer);
+
+		score = initialScore;
 	}
 
 	void SetKiller()
 	{
+		GameObject[] characters = GameObject.FindGameObjectsWithTag("Victim");
 		int randomIndex = Random.Range(0, Npcs.Length);
-		GameObject.Find(Npcs[randomIndex].name).tag = "Killer";
-		Debug.Log(Npcs[randomIndex].name + " is the killer.");
+		characters[randomIndex].tag = "Killer";
+		Debug.Log(characters[randomIndex].name + " is the killer.");
 	}
 
 	int GetScore()
@@ -60,6 +81,7 @@ public class GameManager : MonoBehaviour {
 
 	public void killCharacter(GameObject killed)
 	{
+		killed.GetComponent<AudioSource>().Play();
 		if(killed.tag == "Player")
 		{
 			Destroy(killed);
@@ -74,5 +96,18 @@ public class GameManager : MonoBehaviour {
 	{
 		Debug.Log("Player killed. Game Over! :(");
 		Debug.Log("Final Score: " + score);
+		LoadLevel("GameOver");
+	}
+
+	public void LoadLevel(string levelName)
+	{
+		if(levelName.StartsWith("Mansion"))
+			Invoke("StartGame", initializationTimer);
+		Application.LoadLevel(levelName);
+	}
+	
+	public void QuitGame()
+	{
+		Application.Quit();
 	}
 }
