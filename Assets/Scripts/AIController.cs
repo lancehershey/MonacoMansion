@@ -26,6 +26,9 @@ public class AIController : MonoBehaviour {
 	public Sprite killerSprite;
 	public int runSpeed = 2;
 
+	[HideInInspector]
+	public bool killingMood = false;
+
 	private NavMeshAgent agent;
 	private bool wandering = true;
 	private float timer;
@@ -50,7 +53,7 @@ public class AIController : MonoBehaviour {
 		{
 			wander();
 		}
-		else if(killTarget)
+		else if(killingMood && killTarget)
 		{
 			agent.SetDestination(killTarget.transform.position);
 			if(Vector3.Distance(killTarget.transform.position, transform.position) < GameManager.instance.killRadius)
@@ -89,7 +92,9 @@ public class AIController : MonoBehaviour {
 	{
 		wandering = true;
 		killTarget = null;
+		agent.destination = -agent.destination;
 		spr.sprite = normalSprite;
 		agent.speed = wanderSpeed;
+		killingMood = false;
 	}
 }

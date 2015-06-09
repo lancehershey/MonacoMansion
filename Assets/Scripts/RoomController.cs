@@ -18,7 +18,10 @@ public class RoomController : MonoBehaviour {
 			Camera.main.transform.position = new Vector3(transform.position.x, Camera.main.transform.position.y, transform.position.z);
 			Camera.main.orthographicSize = cameraSize;
 		}
-
+		else if(character.tag == "Killer" && charactersInRoom.Count > 2)
+		{
+			character.GetComponent<AIController>().StopChasing();
+		}
 	}
 
 	void OnTriggerExit(Collider character)
