@@ -20,22 +20,26 @@ public class RoomController : MonoBehaviour {
 		}
 		else if(character.tag == "Killer" && charactersInRoom.Count > 2)
 		{
-			character.GetComponent<AIController>().StopChasing();
+				character.GetComponent<AIController>().StopChasing();
 		}
 	}
 
 	void OnTriggerExit(Collider character)
 	{
 		charactersInRoom.Remove(character.gameObject);
+		if (character.tag == "Player")
+		{
+			Camera.main.transform.position = new Vector3(0, 10, 0);
+			Camera.main.orthographicSize = 9;
+		}
 	}
 
 	void Start()
 	{
 		charactersInRoom.Clear();
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+	void Update()
 	{
 		if(charactersInRoom.Count == 2)
 		{

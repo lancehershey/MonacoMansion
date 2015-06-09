@@ -64,6 +64,12 @@ public class AIController : MonoBehaviour {
 		}
 	}
 
+	void OnTriggerEnter(Collider character)
+	{
+		if(character.tag == "Player")
+			character.GetComponent<PlayerController> ().target = gameObject;
+	}
+
 	// Picks a random point in range and walks to it.
 	void wander()
 	{

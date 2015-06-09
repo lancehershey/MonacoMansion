@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
@@ -48,6 +49,8 @@ public class GameManager : MonoBehaviour {
 	private float initializationTimer = 2f;
 	private float timer;
 	private int itemsCollected = 0;
+	private List<Image> pokes;
+	private int pokeIndex = 0;	// Pokedex?
 
 	//private RectTransform[] itemSlot;
 
@@ -98,7 +101,21 @@ public class GameManager : MonoBehaviour {
 		scoreText.text = "Score: " + score;
 		timerText.text = "Time: " + DisplayTime();
 
+		Image[] imgs = GetComponents<UnityEngine.UI.Image>();
+		pokes = new List<Image>(imgs);
+		foreach (Image i in pokes)
+		{
+			if(!i.name.StartsWith("Poke"))
+				pokes.Remove(i);
+		}
+
+		pokes.Sort(SortByName);
 		//RectTransform[] itemUI = (RectTransform)FindObjectsOfType(typeof(RectTransform));
+	}
+
+	public static int SortByName(Image i1, Image i2)
+	{
+		return i1.name.CompareTo(i2.name);
 	}
 
 	public void accuse()
@@ -118,6 +135,7 @@ public class GameManager : MonoBehaviour {
 		}
 		else
 		{	
+			pokes[pokeIndex++].color = Color.red;
 			score -= falseAccusePenalty;
 			if(--accusations <= 0)
 			{
@@ -137,6 +155,8 @@ public class GameManager : MonoBehaviour {
 		{
 			timer -= Time.deltaTime;
 			timerText.text = "Time: " + DisplayTime();
+			if(timer <= 0)
+				GameOver();
 		}
 	}
 
@@ -158,7 +178,7 @@ public class GameManager : MonoBehaviour {
 		killer = characters[randomIndex];
 	}
 
-	int GetScore()
+	public int GetScore()
 	{
 		return score;
 	}
@@ -195,6 +215,7 @@ public class GameManager : MonoBehaviour {
 	{
 		Debug.Log("Killer identified! You win! :D");
 		score += (pointsPerItemFound * itemsCollected) + (int)timer;
+		LoadLevel("WinScreen");
 	}
 
 	public void LoadLevel(string levelName)
