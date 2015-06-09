@@ -39,12 +39,17 @@ public class GameManager : MonoBehaviour {
 	public int accusations = 3;
 	public float gameTimeInMinutes = 10;
 
+	public int pointsPerItemFound = 50;
+
 	public FloatCount spawnRangeX = new FloatCount(-4f, 4f);
 	public FloatCount spawnRangeZ = new FloatCount(-2.5f, 2.5f);
 
 	private int score;
 	private float initializationTimer = 2f;
 	private float timer;
+	private int itemsCollected = 0;
+
+	//private RectTransform[] itemSlot;
 
 	void Awake()
 	{
@@ -92,6 +97,8 @@ public class GameManager : MonoBehaviour {
 
 		scoreText.text = "Score: " + score;
 		timerText.text = "Time: " + DisplayTime();
+
+		//RectTransform[] itemUI = (RectTransform)FindObjectsOfType(typeof(RectTransform));
 	}
 
 	public void accuse()
@@ -101,6 +108,27 @@ public class GameManager : MonoBehaviour {
 			accuseButton.image.color = Color.red;
 		else
 			accuseButton.image.color = Color.blue;
+	}
+
+	public void accuse(GameObject character)
+	{
+		if(character.tag == "Killer")
+		{
+			Victory();
+		}
+		else
+		{	
+			score -= falseAccusePenalty;
+			if(--accusations <= 0)
+			{
+				GameOver();
+			}
+		}
+	}
+
+	public void AddItem(Sprite item)
+	{
+		itemsCollected++;
 	}
 
 	void Update()
@@ -163,6 +191,12 @@ public class GameManager : MonoBehaviour {
 		LoadLevel("GameOver");
 	}
 
+	void Victory()
+	{
+		Debug.Log("Killer identified! You win! :D");
+		score += (pointsPerItemFound * itemsCollected) + (int)timer;
+	}
+
 	public void LoadLevel(string levelName)
 	{
 		if(levelName.StartsWith("Mansion"))
@@ -174,4 +208,5 @@ public class GameManager : MonoBehaviour {
 	{
 		Application.Quit();
 	}
+	
 }

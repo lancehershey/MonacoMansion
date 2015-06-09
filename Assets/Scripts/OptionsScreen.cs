@@ -10,8 +10,11 @@ public class OptionsScreen : MonoBehaviour {
 
 	void Awake()
 	{
-		master.text = (SoundManager.instance.masterVolume * 100).ToString();
-		music.text = (SoundManager.instance.musicVolume * 100).ToString();
-		fx.text = (SoundManager.instance.fxVolume * 100).ToString();
+		if(SoundManager.instance)
+		{
+			master.text = (SoundManager.instance.masterVolume * 100).ToString();
+			music.text = (SoundManager.instance.musicVolume * 100).ToString();
+			fx.text = (SoundManager.instance.fxVolume * 100).ToString();
+		}
 	}
 }

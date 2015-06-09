@@ -6,7 +6,11 @@ public class PlayerController : MonoBehaviour {
 	public float walkSpeed = 1;
 	public float runSpeed = 3;
 
+	//[HideInInspector]
+	public GameObject target = null;
+
 	private NavMeshAgent agent;
+	private bool hiding = false;
 
 	void Start()
 	{
@@ -27,9 +31,30 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
-		if(Input.GetKeyDown(KeyCode.LeftShift))
+		if(!hiding && Input.GetKeyDown(KeyCode.LeftShift))
 			agent.speed = runSpeed;
-		if(Input.GetKeyUp(KeyCode.LeftShift))
+		if(!hiding && Input.GetKeyUp(KeyCode.LeftShift))
 			agent.speed = walkSpeed;
+
+		if(Input.GetKeyDown(KeyCode.E) && target)
+		{
+			if(!GameManager.instance.accuseMode)
+				target.GetComponent<ObstacleController>().searchForItem();
+			else
+				GameManager.instance.accuse(target);
+		}
+
+		if(Input.GetKeyDown(KeyCode.LeftControl) && target)
+		{
+			target.GetComponent<ObstacleController>().hide();
+			agent.speed = 0;
+			hiding = true;
+		}
+		if(Input.GetKeyUp(KeyCode.LeftControl) && target)
+		{
+			target.GetComponent<ObstacleController>().unhide();
+			agent.speed = walkSpeed;
+			hiding = false;
+		}
 	}
 }
