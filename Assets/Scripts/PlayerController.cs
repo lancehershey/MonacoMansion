@@ -11,10 +11,12 @@ public class PlayerController : MonoBehaviour {
 
 	private NavMeshAgent agent;
 	private bool hiding = false;
+	//private GameObject[] selectableObjects;
 
 	void Start()
 	{
 		agent = GetComponent<NavMeshAgent>();
+		//selectableObjects = GameObject.FindGameObjectsWithTag("Selectable");
 	}
 
 	void Update()
@@ -27,7 +29,6 @@ public class PlayerController : MonoBehaviour {
 			if(Physics.Raycast(ray, out hit, 100))
 			{
 				agent.SetDestination(hit.point);
-				//agent.updateRotation = false;
 			}
 		}
 
@@ -38,9 +39,11 @@ public class PlayerController : MonoBehaviour {
 
 		if(Input.GetKeyDown(KeyCode.E) && target)
 		{
-			if(!GameManager.instance.accuseMode)
+			ObstacleController obs = target.GetComponent<ObstacleController>();
+			AIController aic = target.GetComponent<AIController>();
+			if(obs)
 				target.GetComponent<ObstacleController>().searchForItem();
-			else
+			else if(aic)
 				GameManager.instance.accuse(target);
 		}
 

@@ -23,11 +23,12 @@ public class GameManager : MonoBehaviour {
 
 	[HideInInspector]
 	public static GameManager instance = null;
+	[HideInInspector]
+	public Score score;
 
 	public Text scoreText;
 	public Text timerText;
-
-	[HideInInspector]
+	
 	public Button accuseButton;
 	public bool accuseMode = false;
 
@@ -42,80 +43,62 @@ public class GameManager : MonoBehaviour {
 
 	public int pointsPerItemFound = 50;
 
+	public int itemsCollected = 0;
+	public Image[] pokes;
+	public int pokeIndex = 0;	// Pokedex?
+	
+	public Image[] itemSlots;
+	public int itemIndex = 0;
+
 	public FloatCount spawnRangeX = new FloatCount(-4f, 4f);
 	public FloatCount spawnRangeZ = new FloatCount(-2.5f, 2.5f);
-
-	private int score;
+	
 	private float initializationTimer = 2f;
 	private float timer;
-	private int itemsCollected = 0;
-	private List<Image> pokes;
-	private int pokeIndex = 0;	// Pokedex?
 
-	//private RectTransform[] itemSlot;
 
-	void Awake()
+//	void Awake()
+//	{
+//		if(instance == null)
+//			instance = this;
+//		else if(instance != this)
+//			Destroy(gameObject);
+//
+//		DontDestroyOnLoad(gameObject);
+//
+//	}
+
+	void Start()
 	{
-		if(instance == null)
-			instance = this;
-		else if(instance != this)
-			Destroy(gameObject);
+		instance = this;
 
-		DontDestroyOnLoad(gameObject);
+		score = Score.instance;
 
-	}
-
-	public void StartGame()
-	{
 		foreach(GameObject npc in Npcs)
 		{
-			Instantiate(npc, new Vector3(Random.Range(spawnRangeX.minimum, spawnRangeX.maximum), 0, 
-			                             Random.Range(spawnRangeZ.minimum, spawnRangeZ.maximum)), Quaternion.identity);
+			GameObject clone = Instantiate(npc, new Vector3(Random.Range(spawnRangeX.minimum, spawnRangeX.maximum), 0, 
+			                             Random.Range(spawnRangeZ.minimum, spawnRangeZ.maximum)), Quaternion.identity) as GameObject;
+			clone.layer = 9;
 		}
 
 		Invoke("SetKiller", initializationTimer);
 
-		score = initialScore;
+		score.SetScore(initialScore);
+		scoreText.text = "Score: " + score.GetScore();
+
 		timer = gameTimeInMinutes * 60;
-
-		Text[] texts = (Text[])FindObjectsOfType(typeof(Text));
-		foreach(Text t in texts)
-		{
-			if(t.name.StartsWith("Score"))
-				scoreText = t;
-			else if(t.name.StartsWith("Timer"))
-				timerText = t;
-		}
-
-		accuseButton = (Button)FindObjectOfType(typeof(Button));
-		if(accuseButton.name != "Accuse")
-		{
-			accuseButton = null;
-			Debug.Log("Accuse button not found!");
-		}
-		else
-		{
-			accuseButton.onClick.AddListener(() => accuse());
-		}
-
-		scoreText.text = "Score: " + score;
 		timerText.text = "Time: " + DisplayTime();
 
-		Image[] imgs = GetComponents<UnityEngine.UI.Image>();
-		pokes = new List<Image>(imgs);
-		foreach (Image i in pokes)
-		{
-			if(!i.name.StartsWith("Poke"))
-				pokes.Remove(i);
-		}
-
-		pokes.Sort(SortByName);
-		//RectTransform[] itemUI = (RectTransform)FindObjectsOfType(typeof(RectTransform));
+		accuseButton.onClick.AddListener(() => accuse());
 	}
-
-	public static int SortByName(Image i1, Image i2)
+	
+	public void pickupItem(Sprite img)
 	{
-		return i1.name.CompareTo(i2.name);
+		itemsCollected++;
+		itemSlots[itemIndex].sprite = img;
+		Color opaque = itemSlots[itemIndex].color;
+		opaque.a = 1.0f;
+		itemSlots[itemIndex++].color = opaque;
 	}
 
 	public void accuse()
@@ -136,17 +119,13 @@ public class GameManager : MonoBehaviour {
 		else
 		{	
 			pokes[pokeIndex++].color = Color.red;
-			score -= falseAccusePenalty;
+			score.Adjust(-falseAccusePenalty);
+			scoreText.text = "Score: " + score.GetScore();
 			if(--accusations <= 0)
 			{
 				GameOver();
 			}
 		}
-	}
-
-	public void AddItem(Sprite item)
-	{
-		itemsCollected++;
 	}
 
 	void Update()
@@ -164,7 +143,7 @@ public class GameManager : MonoBehaviour {
 	{
 		string minutes = Mathf.Floor(timer / 60).ToString("00");
 		string seconds = (timer % 60).ToString("00");
-		if(seconds == "00")
+		if(timer <= (9*60) && seconds == "00")
 			killer.GetComponent<AIController>().killingMood = true;
 		return minutes + ":" + seconds;
 	}
@@ -178,19 +157,6 @@ public class GameManager : MonoBehaviour {
 		killer = characters[randomIndex];
 	}
 
-	public int GetScore()
-	{
-		return score;
-	}
-
-	void AdjustScore(int adj)
-	{
-		score += adj;
-		scoreText.text = "Score: " + score;
-		if(score <= 0)
-			GameOver();
-	}
-
 	public void killCharacter(GameObject killed)
 	{
 		killed.GetComponent<AudioSource>().Play();
@@ -200,29 +166,23 @@ public class GameManager : MonoBehaviour {
 			GameOver();
 		}
 		Destroy(killed);
-		AdjustScore(-killPenalty);
-		Debug.Log("Character killed. New score: " + score);
+		score.Adjust(-killPenalty);
+		scoreText.text = "Score: " + score.GetScore();
+		Debug.Log("Character killed. New score: " + score.GetScore());
 	}
 
 	void GameOver()
 	{
-		Debug.Log("Player killed. Game Over! :(");
-		Debug.Log("Final Score: " + score);
-		LoadLevel("GameOver");
+		Debug.Log("Game Over! :(");
+		Debug.Log("Final Score: " + score.GetScore());
+		Application.LoadLevel("GameOver");
 	}
 
 	void Victory()
 	{
 		Debug.Log("Killer identified! You win! :D");
-		score += (pointsPerItemFound * itemsCollected) + (int)timer;
-		LoadLevel("WinScreen");
-	}
-
-	public void LoadLevel(string levelName)
-	{
-		if(levelName.StartsWith("Mansion"))
-			Invoke("StartGame", initializationTimer);
-		Application.LoadLevel(levelName);
+		score.Adjust((pointsPerItemFound * itemsCollected) + (int)timer);
+		Application.LoadLevel("WinScreen");
 	}
 	
 	public void QuitGame()

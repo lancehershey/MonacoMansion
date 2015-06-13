@@ -8,7 +8,6 @@ public class WinScreen : MonoBehaviour {
 
 	void Start()
 	{
-		if(GameManager.instance)
-			finalScoreText.text = "Final Score: " + GameManager.instance.GetScore();
+		finalScoreText.text = "Final Score: " + Score.instance.GetScore();
 	}
 }

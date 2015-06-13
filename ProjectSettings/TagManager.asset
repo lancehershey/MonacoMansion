@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Victim
   - Killer
-  - New Tag
+  - Selectable
   layers:
   - Default
   - TransparentFX
@@ -16,8 +16,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Selectable
+  - Accusable
   - 
   - 
   - 

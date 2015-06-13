@@ -14,9 +14,9 @@ GameObject:
   - 208: {fileID: 20871520}
   - 65: {fileID: 6588290}
   - 114: {fileID: 11494464}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Single_Bed
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 475172}
   - 212: {fileID: 21207804}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Single_Bed Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,6 +132,7 @@ MonoBehaviour:
   hasItem: 1
   item: {fileID: 21300000, guid: b89ec3e045044a5498e406aa966e7b0d, type: 3}
   hideImage: {fileID: 0}
+  selected: 0
 --- !u!208 &20871520
 NavMeshObstacle:
   m_ObjectHideFlags: 1

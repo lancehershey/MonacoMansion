@@ -36,6 +36,9 @@ public class AIController : MonoBehaviour {
 	private SpriteRenderer spr;
 	private Sprite normalSprite;
 
+	private int layerMask = 1 << 9;
+	private bool beingAccused = false;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -48,6 +51,25 @@ public class AIController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		if(Input.GetMouseButtonDown(0) && GameManager.instance.accuseMode)
+		{
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			
+			if(Physics.Raycast(ray, out hit, 100f, layerMask) && hit.collider.gameObject == gameObject)
+			{
+				wandering = false;
+				agent.SetDestination(transform.position);
+				beingAccused = true;
+				Debug.Log("Accusing: " + gameObject.name);
+			}
+			else
+			{
+				wandering = true;
+				beingAccused = false;
+			}
+		}
+
 		timer -= Time.deltaTime;
 		if(wandering && timer < 0)
 		{
@@ -58,6 +80,7 @@ public class AIController : MonoBehaviour {
 			agent.SetDestination(killTarget.transform.position);
 			if(Vector3.Distance(killTarget.transform.position, transform.position) < GameManager.instance.killRadius)
 			{
+				killTarget.GetComponent<AudioSource>().Play();
 				GameManager.instance.killCharacter(killTarget);
 				StopChasing();
 			}
@@ -66,8 +89,21 @@ public class AIController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider character)
 	{
+
+		if(character.tag == "Player" && GameManager.instance.accuseMode)
+		{
+			if(beingAccused)
+			{
+				GameManager.instance.accuse(gameObject);
+			}
+			character.GetComponent<PlayerController>().target = gameObject;
+		}
+	}
+
+	void OnTriggerExit(Collider character)
+	{
 		if(character.tag == "Player")
-			character.GetComponent<PlayerController> ().target = gameObject;
+			character.GetComponent<PlayerController>().target = null;
 	}
 
 	// Picks a random point in range and walks to it.

@@ -12,9 +12,11 @@ GameObject:
   - 65: {fileID: 6573740}
   - 23: {fileID: 2391766}
   - 208: {fileID: 20864346}
-  m_Layer: 0
+  - 114: {fileID: 11449360}
+  - 65: {fileID: 6531462}
+  m_Layer: 8
   m_Name: Chair
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +30,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 467496}
   - 212: {fileID: 21222258}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Chair Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +44,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119654}
   m_LocalRotation: {x: 0, y: .438214302, z: 0, w: .898870528}
-  m_LocalPosition: {x: -.959999979, y: 0, z: -.150000006}
+  m_LocalPosition: {x: -1.26999998, y: 0, z: -1.17999995}
   m_LocalScale: {x: .300145656, y: .350032777, z: .350032806}
   m_Children:
   - {fileID: 467496}
@@ -91,6 +93,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119654}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &6531462
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119654}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1, z: 2}
+  m_Center: {x: -1.49011612e-07, y: 0, z: -4.76837158e-07}
 --- !u!65 &6573740
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -103,6 +117,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11449360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e383043a175986444a3f7b6c66f39fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hideable: 0
+  hasItem: 1
+  item: {fileID: 21300000, guid: 471335f4c68c9c1428333f938e25c924, type: 3}
+  hideImage: {fileID: 0}
+  selected: 0
 --- !u!208 &20864346
 NavMeshObstacle:
   m_ObjectHideFlags: 1
