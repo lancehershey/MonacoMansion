@@ -61,6 +61,8 @@ public class RoomController : MonoBehaviour {
 		{
 			foreach(GameObject c in charactersInRoom)
 			{
+				if(c == null)
+					charactersInRoom.Remove(c);
 				if(c.tag == "Killer")
 				{
 					int target;

@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 450720}
   - 212: {fileID: 21239310}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Couch Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,9 +28,11 @@ GameObject:
   - 65: {fileID: 6565726}
   - 23: {fileID: 2370276}
   - 208: {fileID: 20846764}
-  m_Layer: 0
+  - 65: {fileID: 6514644}
+  - 114: {fileID: 11496494}
+  m_Layer: 8
   m_Name: Couch
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 189956}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.15999997}
+  m_LocalPosition: {x: 1.35000002, y: 0, z: 3.16000009}
   m_LocalScale: {x: 1.08000004, y: 1, z: .540000021}
   m_Children:
   - {fileID: 450720}
@@ -91,6 +93,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 189956}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &6514644
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189956}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6565726
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -103,6 +117,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11496494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e383043a175986444a3f7b6c66f39fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hideable: 1
+  hasItem: 1
+  item: {fileID: 21300000, guid: d881ecfceb904e7469cb293263aeae44, type: 3}
+  hideImage: {fileID: 0}
+  selected: 0
 --- !u!208 &20846764
 NavMeshObstacle:
   m_ObjectHideFlags: 1
@@ -112,7 +142,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: .375, y: .5, z: .25}
+  m_Extents: {x: .5, y: .5, z: .5}
   m_MoveThreshold: .100000001
   m_Carve: 1
   m_CarveOnlyStationary: 1
