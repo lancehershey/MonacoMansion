@@ -214,6 +214,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f820a32eebcb9e4a89a024e4f01117e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Items:
+  - {fileID: 21300000, guid: 0f21eca78af4bc54e88adbf1d48dcafc, type: 3}
+  - {fileID: 21300000, guid: 302b16fa9c7c3b540a978f36c1ba7c1f, type: 3}
+  - {fileID: 21300000, guid: 5ed76bde99bad904b93f6d2db994057b, type: 3}
+  SuspiciousItems:
+  - {fileID: 21300000, guid: 4e9d91d5e6d41e1489e1669d6ad004d2, type: 3}
+  - {fileID: 21300000, guid: 49df866105cafa64087a35ea6a834d42, type: 3}
+  - {fileID: 21300000, guid: d881ecfceb904e7469cb293263aeae44, type: 3}
   wanderRange:
     minimum: 1
     maximum: 10
@@ -224,7 +232,6 @@ MonoBehaviour:
   wanderSpeed: 1
   killerSprite: {fileID: 21300000, guid: 5c3208f6595b9c8449d3e46d04cd4a5d, type: 3}
   runSpeed: 2
-  killingMood: 0
 --- !u!195 &19504664
 NavMeshAgent:
   m_ObjectHideFlags: 1

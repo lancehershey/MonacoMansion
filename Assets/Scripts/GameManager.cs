@@ -33,15 +33,19 @@ public class GameManager : MonoBehaviour {
 	public bool accuseMode = false;
 
 	public GameObject[] Npcs;
+	public GameObject[] Obstacles;
 	public GameObject killer;
 	public int initialScore = 1000;
 	public float killRadius = 1f;
 	public int killPenalty = 100;
 	public int falseAccusePenalty = 200;
 	public int accusations = 3;
-	public float gameTimeInMinutes = 10;
+	public float gameTimeInMinutes = 5;
 
 	public int pointsPerItemFound = 50;
+
+	public Image darkImage;
+	public Image flashImage;
 
 	public int itemsCollected = 0;
 	public Image[] pokes;
@@ -55,7 +59,10 @@ public class GameManager : MonoBehaviour {
 	
 	private float initializationTimer = 2f;
 	private float timer;
-
+	private float deathInterval;
+	private float deathTimer;
+	private List<GameObject> victims;
+	private List<GameObject> itemLocations;
 
 //	void Awake()
 //	{
@@ -74,6 +81,9 @@ public class GameManager : MonoBehaviour {
 
 		score = Score.instance;
 
+		if(SoundManager.instance)
+			SoundManager.instance.PlayGameMusic();
+
 		foreach(GameObject npc in Npcs)
 		{
 			GameObject clone = Instantiate(npc, new Vector3(Random.Range(spawnRangeX.minimum, spawnRangeX.maximum), 0, 
@@ -87,6 +97,8 @@ public class GameManager : MonoBehaviour {
 		scoreText.text = "Score: " + score.GetScore();
 
 		timer = gameTimeInMinutes * 60;
+		deathInterval = timer/(Npcs.Length + 1);
+		deathTimer = deathInterval;
 		timerText.text = "Time: " + DisplayTime();
 
 		accuseButton.onClick.AddListener(() => accuse());
@@ -130,21 +142,38 @@ public class GameManager : MonoBehaviour {
 
 	void Update()
 	{
+		if(Input.GetKeyDown(KeyCode.Tab))
+		{
+			accuse();
+		}
+
 		if(timerText)
 		{
 			timer -= Time.deltaTime;
+			deathTimer -= Time.deltaTime;
+			if(deathTimer <= 0)
+			{
+				StartCoroutine(ScreenFlash());
+				killer.GetComponent<AIController>().Kill(victims[Random.Range(0, victims.Count)]);
+				deathTimer = deathInterval;
+			}
 			timerText.text = "Time: " + DisplayTime();
 			if(timer <= 0)
 				GameOver();
 		}
 	}
 
+	public void KillSuccessful(GameObject killed)
+	{
+		victims.Remove(killed);
+		darkImage.enabled = false;
+		score.Adjust(-killPenalty);
+	}
+
 	string DisplayTime()
 	{
 		string minutes = Mathf.Floor(timer / 60).ToString("00");
 		string seconds = (timer % 60).ToString("00");
-		if(timer <= (9*60) && seconds == "00")
-			killer.GetComponent<AIController>().killingMood = true;
 		return minutes + ":" + seconds;
 	}
 
@@ -155,6 +184,81 @@ public class GameManager : MonoBehaviour {
 		characters[randomIndex].tag = "Killer";
 		Debug.Log(characters[randomIndex].name + " is the killer.");
 		killer = characters[randomIndex];
+
+		victims = new List<GameObject>(GameObject.FindGameObjectsWithTag("Victim"));
+		victims.Add(GameObject.FindGameObjectWithTag("Player"));
+
+		ArrangeItems();
+	}
+
+	void ArrangeItems()
+	{
+		itemLocations = new List<GameObject>();
+		// We have 13 items and 12 inventory slots, so we skip one obstacle when we hide items.
+		int randomSkipIndex = Random.Range(0, Obstacles.Length - 1);
+		for(int i = 0; i < Obstacles.Length; i++)
+		{
+			if(i == randomSkipIndex)
+				continue;
+			itemLocations.Add(Obstacles[i]);
+		}
+		// Avoid placing duplicate items. Keep track of the items that we've added with a hashset.
+		HashSet<string> itemsPlaced = new HashSet<string>();
+
+		// Place the killer's items first.
+		Sprite[] killerItems = killer.GetComponent<AIController>().SuspiciousItems;
+		for(int i = 0; i < 3; i++)
+		{
+			int randomIndex = Random.Range(0, itemLocations.Count - 1);
+			ObstacleController location = itemLocations[randomIndex].GetComponent<ObstacleController>();
+			location.item = killerItems[i];
+			location.hasItem = true;
+			itemsPlaced.Add(killerItems[i].name.TrimEnd(new char[] {'_', '1', '2'}));
+			itemLocations.RemoveAt(randomIndex);
+		}
+
+		// Now fill in items from the remaining characters.
+		int charIndex = 0;
+		GameObject[] characters = GameObject.FindGameObjectsWithTag("Victim");
+		// 12 item spots - 3 killer items = 9 item slots left to fill.
+		for(int i = 0; i < 9; i ++)
+		{
+			Sprite[] items = characters[charIndex].GetComponent<AIController>().Items;
+			for(int j = 0; j < 3; j++)
+			{
+				string itemName = items[j].name.TrimEnd(new char[] {'_', '1', '2'});
+				if(!itemsPlaced.Contains(itemName))
+				{
+					int randomIndex = Random.Range(0, itemLocations.Count - 1);
+					ObstacleController location = itemLocations[randomIndex].GetComponent<ObstacleController>();
+					location.item = items[j];
+					location.hasItem = true;
+					itemsPlaced.Add(itemName);
+					itemLocations.RemoveAt(randomIndex);
+				}
+			}
+			charIndex++;
+		}
+		Debug.Log("Empty Item Locations: " + itemLocations.Count);
+	}
+
+	IEnumerator ScreenFlash()
+	{
+		float offMin = 0.1f;
+		float offMax = 0.2f;
+		float onMin = 0.05f;
+		float onMax = 0.1f;
+
+		for(int flashes = 3; flashes > 0; flashes--)
+		{
+			flashImage.enabled = true;
+			darkImage.enabled = false;
+			yield return new WaitForSeconds(Random.Range(onMin, onMax));
+			flashImage.enabled = false;
+			darkImage.enabled = true;
+			yield return new WaitForSeconds(Random.Range(offMin, offMax));
+		}
+		//darkImage.enabled = false;
 	}
 
 	public void killCharacter(GameObject killed)
@@ -175,6 +279,8 @@ public class GameManager : MonoBehaviour {
 	{
 		Debug.Log("Game Over! :(");
 		Debug.Log("Final Score: " + score.GetScore());
+		if(SoundManager.instance)
+			SoundManager.instance.PlayIntroMusic();
 		Application.LoadLevel("GameOver");
 	}
 
@@ -182,6 +288,8 @@ public class GameManager : MonoBehaviour {
 	{
 		Debug.Log("Killer identified! You win! :D");
 		score.Adjust((pointsPerItemFound * itemsCollected) + (int)timer);
+		if(SoundManager.instance)
+			SoundManager.instance.PlayIntroMusic();
 		Application.LoadLevel("WinScreen");
 	}
 	

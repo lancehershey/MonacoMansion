@@ -19,15 +19,15 @@ public class AIController : MonoBehaviour {
 		}
 	}
 
+	public Sprite[] Items;
+	public Sprite[] SuspiciousItems;
+
 	public Count wanderRange = new Count(5, 20);
 	public Count wanderSeconds = new Count(2, 5);
 	public float wanderDelay = 2;
 	public int wanderSpeed = 1;
 	public Sprite killerSprite;
 	public int runSpeed = 2;
-
-	[HideInInspector]
-	public bool killingMood = false;
 
 	private NavMeshAgent agent;
 	private bool wandering = true;
@@ -38,6 +38,7 @@ public class AIController : MonoBehaviour {
 
 	private int layerMask = 1 << 9;
 	private bool beingAccused = false;
+	private bool dead = false;
 
 	// Use this for initialization
 	void Start ()
@@ -75,13 +76,14 @@ public class AIController : MonoBehaviour {
 		{
 			wander();
 		}
-		else if(killingMood && killTarget)
+		else if(killTarget)
 		{
 			agent.SetDestination(killTarget.transform.position);
 			if(Vector3.Distance(killTarget.transform.position, transform.position) < GameManager.instance.killRadius)
 			{
 				killTarget.GetComponent<AudioSource>().Play();
-				GameManager.instance.killCharacter(killTarget);
+				killTarget.GetComponent<AIController>().Dead();
+				GameManager.instance.KillSuccessful(killTarget);
 				StopChasing();
 			}
 		}
@@ -90,12 +92,12 @@ public class AIController : MonoBehaviour {
 	void OnTriggerEnter(Collider character)
 	{
 
-		if(character.tag == "Player" && GameManager.instance.accuseMode)
+		if(!dead && character.tag == "Player")
 		{
-			if(beingAccused)
-			{
-				GameManager.instance.accuse(gameObject);
-			}
+//			if(beingAccused)
+//			{
+//				GameManager.instance.accuse(gameObject);
+//			}
 			character.GetComponent<PlayerController>().target = gameObject;
 		}
 	}
@@ -122,6 +124,15 @@ public class AIController : MonoBehaviour {
 		timer = Random.Range(wanderSeconds.minimum, wanderSeconds.maximum);
 	}
 
+	public void Dead()
+	{
+		agent.speed = 0;
+		agent.SetDestination(transform.position);
+		wandering = false;
+		GetComponentInChildren<SpriteRenderer>().color = Color.red;
+		dead = true;
+	}
+
 	public void Kill(GameObject target)
 	{
 		wandering = false;
@@ -134,9 +145,8 @@ public class AIController : MonoBehaviour {
 	{
 		wandering = true;
 		killTarget = null;
-		agent.destination = -agent.destination;
+		agent.SetDestination(-transform.position);
 		spr.sprite = normalSprite;
 		agent.speed = wanderSpeed;
-		killingMood = false;
 	}
 }

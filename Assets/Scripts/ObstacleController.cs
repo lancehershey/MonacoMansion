@@ -38,10 +38,10 @@ public class ObstacleController : MonoBehaviour {
 	{
 		if(character.tag == "Player")
 		{
-			if(selected)
-			{
-				searchForItem();
-			}
+//			if(selected && hasItem)
+//			{
+//				searchForItem();
+//			}
 			character.GetComponent<PlayerController>().target = gameObject;
 		}
 	}

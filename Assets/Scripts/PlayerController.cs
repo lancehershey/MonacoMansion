@@ -11,17 +11,47 @@ public class PlayerController : MonoBehaviour {
 
 	private NavMeshAgent agent;
 	private bool hiding = false;
+	private float speed = 1f;
+	private bool clickToMove = false;
 	//private GameObject[] selectableObjects;
 
 	void Start()
 	{
 		agent = GetComponent<NavMeshAgent>();
+		if(!clickToMove)
+		{
+			agent.enabled = false;
+		}
 		//selectableObjects = GameObject.FindGameObjectsWithTag("Selectable");
 	}
 
 	void Update()
 	{
-		if(Input.GetMouseButtonDown(0))
+		if(!clickToMove && !hiding)
+		{
+			if(Input.GetKey(KeyCode.A))
+			{
+				//agent.SetDestination(new Vector3(transform.position.x - speed * Time.deltaTime, transform.position.y, transform.position.z));
+				transform.position = new Vector3(transform.position.x - speed * Time.deltaTime, transform.position.y, transform.position.z);
+			}
+			if(Input.GetKey(KeyCode.D))
+			{
+				//agent.SetDestination(new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z));
+				transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
+			}
+			if(Input.GetKey(KeyCode.W))
+			{
+				//agent.SetDestination(new Vector3(transform.position.x, transform.position.y, transform.position.z + speed * Time.deltaTime));
+				transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + speed * Time.deltaTime);
+			}
+			if(Input.GetKey(KeyCode.S))
+			{
+				//agent.SetDestination(new Vector3(transform.position.x, transform.position.y, transform.position.z - speed * Time.deltaTime));
+				transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - speed * Time.deltaTime);
+			}
+		}
+
+		if(clickToMove && Input.GetMouseButtonDown(0))
 		{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
@@ -33,9 +63,15 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if(!hiding && Input.GetKeyDown(KeyCode.LeftShift))
-			agent.speed = runSpeed;
+		{
+			//agent.speed = runSpeed;
+			speed = runSpeed;
+		}
 		if(!hiding && Input.GetKeyUp(KeyCode.LeftShift))
-			agent.speed = walkSpeed;
+		{
+			//agent.speed = walkSpeed;
+			speed = walkSpeed;
+		}
 
 		if(Input.GetKeyDown(KeyCode.E) && target)
 		{
@@ -43,7 +79,7 @@ public class PlayerController : MonoBehaviour {
 			AIController aic = target.GetComponent<AIController>();
 			if(obs)
 				target.GetComponent<ObstacleController>().searchForItem();
-			else if(aic)
+			else if(aic && GameManager.instance.accuseMode)
 				GameManager.instance.accuse(target);
 		}
 

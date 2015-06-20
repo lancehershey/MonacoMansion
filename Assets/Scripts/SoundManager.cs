@@ -6,6 +6,9 @@ public class SoundManager : MonoBehaviour {
 	[HideInInspector]
 	public static SoundManager instance = null;
 
+	public AudioClip menuMusic;
+	public AudioClip gameMusic;
+
 	public float masterVolume = 1f;
 	public float musicVolume = 1f;
 	public float fxVolume = 1f;
@@ -23,6 +26,20 @@ public class SoundManager : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 
 		music = GetComponent<AudioSource>();
+	}
+
+	public void PlayIntroMusic()
+	{
+		music.Stop();
+		music.clip = menuMusic;
+		music.Play();
+	}
+
+	public void PlayGameMusic()
+	{
+		music.Stop();
+		music.clip = gameMusic;
+		music.Play();
 	}
 
 	public void adjustMaster(int input)
