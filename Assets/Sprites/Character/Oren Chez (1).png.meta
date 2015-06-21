@@ -1,16 +1,15 @@
 fileFormatVersion: 2
-guid: 62c2e021b0e585747b5590f7a33f1ddd
-timeCreated: 1434860903
+guid: 0e2167dc2b4651446b872bc0ed9e4cbf
+timeCreated: 1434861035
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Mr. Grey_0
-    21300002: Mr. Grey_1
-    21300004: Mr. Grey_2
-    21300006: Mr. Grey_3
-    21300008: Mr. Grey_4
-    21300010: Mr. Grey_5
-    21300012: Mr. Grey_6
+    21300000: Oren Chez (1)_0
+    21300002: Oren Chez (1)_1
+    21300004: Oren Chez (1)_2
+    21300006: Oren Chez (1)_3
+    21300008: Oren Chez (1)_4
+    21300010: Oren Chez (1)_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -47,82 +46,72 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: .072072044, y: .473723769}
-  spriteBorder: {x: 7, y: 0, z: 390, w: 1}
-  spritePixelsToUnits: 128
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Mr. Grey_0
+    - name: Oren Chez (1)_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 14
-        width: 46
+        x: 7
+        y: 19
+        width: 50
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Oren Chez (1)_1
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 17
+        width: 50
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Oren Chez (1)_2
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 15
+        width: 50
         height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Mr. Grey_1
+    - name: Oren Chez (1)_3
       rect:
         serializedVersion: 2
-        x: 73
-        y: 9
-        width: 46
-        height: 47
+        x: 199
+        y: 17
+        width: 52
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Mr. Grey_2
+    - name: Oren Chez (1)_4
       rect:
         serializedVersion: 2
-        x: 137
-        y: 7
-        width: 46
-        height: 49
+        x: 263
+        y: 19
+        width: 51
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Mr. Grey_3
+    - name: Oren Chez (1)_5
       rect:
         serializedVersion: 2
-        x: 201
-        y: 9
-        width: 46
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Mr. Grey_4
-      rect:
-        serializedVersion: 2
-        x: 265
-        y: 14
-        width: 46
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Mr. Grey_5
-      rect:
-        serializedVersion: 2
-        x: 329
-        y: 12
-        width: 46
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Mr. Grey_6
-      rect:
-        serializedVersion: 2
-        x: 393
-        y: 10
-        width: 46
-        height: 46
+        x: 327
+        y: 17
+        width: 50
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

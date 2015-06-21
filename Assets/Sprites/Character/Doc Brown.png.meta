@@ -1,9 +1,15 @@
 fileFormatVersion: 2
 guid: 18ad15240139f4846a86b864b166c852
-timeCreated: 1433267035
+timeCreated: 1434860985
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Doc Brown_0
+    21300002: Doc Brown_1
+    21300004: Doc Brown_2
+    21300006: Doc Brown_3
+    21300008: Doc Brown_4
+    21300010: Doc Brown_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -26,7 +32,7 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -3
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
@@ -37,7 +43,7 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -48,7 +54,67 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: Doc Brown_0
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 15
+        width: 40
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doc Brown_1
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 13
+        width: 40
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doc Brown_2
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 11
+        width: 40
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doc Brown_3
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 13
+        width: 40
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doc Brown_4
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 15
+        width: 40
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Doc Brown_5
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 13
+        width: 40
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

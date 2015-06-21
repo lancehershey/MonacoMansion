@@ -2,32 +2,32 @@ Initialize engine version: 5.0.0f4 (5b98b70ebeb9)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.0]
-    Renderer: NVIDIA GeForce GTX 670M  (ID=0x1213)
+    Renderer: NVIDIA GeForce GTX 650 (ID=0xfc6)
     Vendor:   NVIDIA
-    VRAM:     1488 MB
+    VRAM:     971 MB
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Games\MysteryMansion\Murder Party Feature Complete_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Games\MysteryMansion\Murder Party Feature Complete_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Games\MysteryMansion\Murder Party Feature Complete_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Games\MysteryMansion\Murder Party Feature Complete_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Games\MysteryMansion\Murder Party Feature Complete_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading C:\Games\MysteryMansion\Murder Party Feature Complete_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-- Completed reload, in  0.046 seconds
-desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+Platform assembly: C:\Users\Anderson\Desktop\MysteryMansion\Murder Party Feature Complete_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Anderson\Desktop\MysteryMansion\Murder Party Feature Complete_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Anderson\Desktop\MysteryMansion\Murder Party Feature Complete_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Anderson\Desktop\MysteryMansion\Murder Party Feature Complete_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Anderson\Desktop\MysteryMansion\Murder Party Feature Complete_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Anderson\Desktop\MysteryMansion\Murder Party Feature Complete_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+- Completed reload, in  0.456 seconds
+desktop: 1280x1024 60Hz; virtual: 1280x1024 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-Platform assembly: C:\Games\MysteryMansion\Murder Party Feature Complete_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: C:\Games\MysteryMansion\Murder Party Feature Complete_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\Anderson\Desktop\MysteryMansion\Murder Party Feature Complete_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Anderson\Desktop\MysteryMansion\Murder Party Feature Complete_Data\Managed\System.dll (this message is harmless)
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: e0c -> priority: 1 
+  Thread -> id: d7c -> priority: 1 
 Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 8.145942 ms
+UnloadTime: 14.641696 ms
 
 Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 721.
-Total: 0.488928 ms (FindLiveObjects: 0.062809 ms CreateObjectMapping: 0.044746 ms MarkObjects: 0.329647 ms  DeleteObjects: 0.014778 ms)
+Total: 14.989809 ms (FindLiveObjects: 0.118887 ms CreateObjectMapping: 0.069788 ms MarkObjects: 14.754515 ms  DeleteObjects: 0.036411 ms)
 
-Nurse White(Clone) is the killer.
+Yellow Widow(Clone) is the killer.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
 
@@ -44,53 +44,4 @@ InvalidOperationException: Collection was modified; enumeration operation may no
   at RoomController.Update () [0x00000] in <filename unknown>:0 
  
 (Filename:  Line: -1)
-
-Player killed. Game Over! :(
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
-
-Final Score: 400
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebug.gen.cpp Line: 56)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.955689 ms
-
-Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 330.
-Total: 0.321436 ms (FindLiveObjects: 0.019294 ms CreateObjectMapping: 0.015599 ms MarkObjects: 0.259448 ms  DeleteObjects: 0.026683 ms)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.557485 ms
-
-Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 366.
-Total: 0.521359 ms (FindLiveObjects: 0.116587 ms CreateObjectMapping: 0.034483 ms MarkObjects: 0.359615 ms  DeleteObjects: 0.009441 ms)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.539012 ms
-NullReferenceException: Object reference not set to an instance of an object
-  at OptionsScreen.Awake () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-
-Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 396.
-Total: 0.328415 ms (FindLiveObjects: 0.047209 ms CreateObjectMapping: 0.040641 ms MarkObjects: 0.226606 ms  DeleteObjects: 0.012315 ms)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.632200 ms
-
-Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 364.
-Total: 0.415035 ms (FindLiveObjects: 0.059935 ms CreateObjectMapping: 0.036946 ms MarkObjects: 0.307889 ms  DeleteObjects: 0.009031 ms)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.433919 ms
-
-Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 339.
-Total: 0.434740 ms (FindLiveObjects: 0.044746 ms CreateObjectMapping: 0.030378 ms MarkObjects: 0.347710 ms  DeleteObjects: 0.010673 ms)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.458960 ms
-
-Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 364.
-Total: 0.290647 ms (FindLiveObjects: 0.045157 ms CreateObjectMapping: 0.014368 ms MarkObjects: 0.202796 ms  DeleteObjects: 0.027504 ms)
 
