@@ -96,4 +96,9 @@ public class PlayerController : MonoBehaviour {
 			hiding = false;
 		}
 	}
+
+	public bool isHiding()
+	{
+		return hiding;
+	}
 }

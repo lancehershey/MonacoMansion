@@ -79,11 +79,14 @@ public class AIController : MonoBehaviour {
 		else if(killTarget)
 		{
 			agent.SetDestination(killTarget.transform.position);
+			if(killTarget.tag == "Player" && killTarget.GetComponent<PlayerController>().isHiding())
+			{
+				StopChasing();
+			}
 			if(Vector3.Distance(killTarget.transform.position, transform.position) < GameManager.instance.killRadius)
 			{
 				killTarget.GetComponent<AudioSource>().Play();
 				killTarget.GetComponent<AIController>().Dead();
-				GameManager.instance.KillSuccessful(killTarget);
 				StopChasing();
 			}
 		}
@@ -126,10 +129,16 @@ public class AIController : MonoBehaviour {
 
 	public void Dead()
 	{
+		GameManager.instance.KillSuccessful(gameObject);
 		agent.speed = 0;
 		agent.SetDestination(transform.position);
 		wandering = false;
 		GetComponentInChildren<SpriteRenderer>().color = Color.red;
+		BoxCollider[] col = GetComponents<BoxCollider>();
+		foreach(BoxCollider bc in col)
+		{
+			bc.enabled = false;
+		}
 		dead = true;
 	}
 
