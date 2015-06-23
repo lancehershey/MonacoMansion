@@ -54,12 +54,13 @@ public class ObstacleController : MonoBehaviour {
 
 	public void searchForItem()
 	{
-		if(hasItem)
-		{
+		if (hasItem) {
 			GameManager.instance.pickupItem(item);
 			hasItem = false;
-		}
-		Debug.Log("Picked up item: " + item.name);
+		} else
+			GameManager.instance.noItem();
+
+		//Debug.Log("Picked up item: " + item.name);
 	}
 
 	public void hide()

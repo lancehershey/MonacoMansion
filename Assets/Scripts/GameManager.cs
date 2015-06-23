@@ -28,12 +28,14 @@ public class GameManager : MonoBehaviour {
 
 	public Text scoreText;
 	public Text timerText;
+	public Text displayText;
 	
 	public Button accuseButton;
 	public bool accuseMode = false;
 
 	public GameObject[] Npcs;
 	public GameObject[] Obstacles;
+	public GameObject ObstacleContainer;
 	public GameObject killer;
 	public int initialScore = 1000;
 	public float killRadius = 1f;
@@ -41,6 +43,7 @@ public class GameManager : MonoBehaviour {
 	public int falseAccusePenalty = 200;
 	public int accusations = 3;
 	public float gameTimeInMinutes = 5;
+	public float messageFadeDelay = 2;
 
 	public int pointsPerItemFound = 50;
 
@@ -111,6 +114,34 @@ public class GameManager : MonoBehaviour {
 		Color opaque = itemSlots[itemIndex].color;
 		opaque.a = 1.0f;
 		itemSlots[itemIndex++].color = opaque;
+		DisplayMessage("Found " + img.name.TrimEnd(new char[] {'_', '1', '2'}));
+	}
+
+	public void noItem()
+	{
+		DisplayMessage("No item here...");
+	}
+
+	void DisplayMessage(string message)
+	{
+		displayText.enabled = true;
+		Color textColor = displayText.color;
+		displayText.color = new Color(textColor.r, textColor.g, textColor.b, 1.0f);
+		displayText.text = message;
+		StartCoroutine(FadeText());
+	}
+
+	IEnumerator FadeText()
+	{
+		yield return new WaitForSeconds(messageFadeDelay);
+		float t = 1.0f;
+		while (t > 0) 
+		{
+			t -= Time.deltaTime;
+			Color textColor = displayText.color;
+			displayText.color = new Color(textColor.r, textColor.g, textColor.b, t);
+			yield return 0;
+		}
 	}
 
 	public void accuse()
@@ -124,6 +155,7 @@ public class GameManager : MonoBehaviour {
 
 	public void accuse(GameObject character)
 	{
+		DisplayMessage("Accusing " + character.name.TrimEnd("(Clone)".ToCharArray()));
 		if(character.tag == "Killer")
 		{
 			Victory();
@@ -168,6 +200,7 @@ public class GameManager : MonoBehaviour {
 		victims.Remove(killed);
 		darkImage.enabled = false;
 		score.Adjust(-killPenalty);
+		scoreText.text = "Score: " + score.GetScore();
 	}
 
 	string DisplayTime()
@@ -194,14 +227,15 @@ public class GameManager : MonoBehaviour {
 	void ArrangeItems()
 	{
 		itemLocations = new List<GameObject>();
-		// We have 13 items and 12 inventory slots, so we skip one obstacle when we hide items.
-		int randomSkipIndex = Random.Range(0, Obstacles.Length - 1);
-		for(int i = 0; i < Obstacles.Length; i++)
+		for(int i = 0; i < ObstacleContainer.transform.childCount; i++)
 		{
-			if(i == randomSkipIndex)
-				continue;
-			itemLocations.Add(Obstacles[i]);
+			itemLocations.Add(ObstacleContainer.transform.GetChild(i).gameObject);
 		}
+		//for(int i = 0; i < Obstacles.Length; i++)
+		//{
+		//	itemLocations.Add(Obstacles[i]);
+		//}
+
 		// Avoid placing duplicate items. Keep track of the items that we've added with a hashset.
 		HashSet<string> itemsPlaced = new HashSet<string>();
 
@@ -258,7 +292,7 @@ public class GameManager : MonoBehaviour {
 			darkImage.enabled = true;
 			yield return new WaitForSeconds(Random.Range(offMin, offMax));
 		}
-		//darkImage.enabled = false;
+		darkImage.enabled = false;
 	}
 
 	public void killCharacter(GameObject killed)
@@ -275,7 +309,7 @@ public class GameManager : MonoBehaviour {
 		Debug.Log("Character killed. New score: " + score.GetScore());
 	}
 
-	void GameOver()
+	public void GameOver()
 	{
 		Debug.Log("Game Over! :(");
 		Debug.Log("Final Score: " + score.GetScore());

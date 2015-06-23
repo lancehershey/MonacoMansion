@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour {
 
 	void Update()
 	{
+		//transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+
 		if(!clickToMove && !hiding)
 		{
 			if(Input.GetKey(KeyCode.A))
@@ -73,7 +75,7 @@ public class PlayerController : MonoBehaviour {
 			speed = walkSpeed;
 		}
 
-		if(Input.GetKeyDown(KeyCode.E) && target)
+		if(Input.GetKeyDown(KeyCode.E) && target != null)
 		{
 			ObstacleController obs = target.GetComponent<ObstacleController>();
 			AIController aic = target.GetComponent<AIController>();

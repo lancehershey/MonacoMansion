@@ -37,7 +37,7 @@ public class AIController : MonoBehaviour {
 	private Sprite normalSprite;
 
 	private int layerMask = 1 << 9;
-	private bool beingAccused = false;
+	//private bool beingAccused = false;
 	private bool dead = false;
 
 	// Use this for initialization
@@ -61,13 +61,13 @@ public class AIController : MonoBehaviour {
 			{
 				wandering = false;
 				agent.SetDestination(transform.position);
-				beingAccused = true;
+				//beingAccused = true;
 				Debug.Log("Accusing: " + gameObject.name);
 			}
 			else
 			{
 				wandering = true;
-				beingAccused = false;
+				//beingAccused = false;
 			}
 		}
 
@@ -85,6 +85,10 @@ public class AIController : MonoBehaviour {
 			}
 			if(Vector3.Distance(killTarget.transform.position, transform.position) < GameManager.instance.killRadius)
 			{
+				if(killTarget.tag == "Player")
+				{
+					GameManager.instance.GameOver();
+				}
 				killTarget.GetComponent<AudioSource>().Play();
 				killTarget.GetComponent<AIController>().Dead();
 				StopChasing();
@@ -101,6 +105,14 @@ public class AIController : MonoBehaviour {
 //			{
 //				GameManager.instance.accuse(gameObject);
 //			}
+			character.GetComponent<PlayerController>().target = gameObject;
+		}
+	}
+
+	void OnTriggerStay(Collider character)
+	{
+		if(character.tag == "Player" && GameManager.instance.accuseMode && character.GetComponent<PlayerController>().target != gameObject)
+		{
 			character.GetComponent<PlayerController>().target = gameObject;
 		}
 	}

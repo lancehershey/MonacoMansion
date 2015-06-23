@@ -26,6 +26,15 @@ public class RoomController : MonoBehaviour {
 		}
 	}
 
+	//IEnumerator OnTriggerStay(Collider character)
+	//{
+	//	yield return new WaitForSeconds(1);
+	//	if (character.tag == "Player" && Camera.main.transform.position.x != transform.position.x && Camera.main.transform.position.z != transform.position.z)
+	//	{
+	//		StartCoroutine(Transition());
+	//	}
+	//}
+
 	void OnTriggerEnter(Collider character)
 	{
 		if(character.tag == "Player")
