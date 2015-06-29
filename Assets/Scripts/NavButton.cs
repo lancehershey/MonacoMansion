@@ -6,5 +6,10 @@ public class NavButton : MonoBehaviour {
 	public void LoadLevel(string levelName)
 	{
 		Application.LoadLevel(levelName);
-	}	
+	}
+
+	public void QuitGame()
+	{
+		Application.Quit();
+	}
 }
